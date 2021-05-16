@@ -1,0 +1,95 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Inventory Management System",
+    "description": "Inventory Management API"
+  },
+  "paths": {
+    "/api/method/ims.items": {
+      "get": {
+        "tags": ["Items"],
+        "description": "Returns items",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "format",
+            "required": true,
+            "description": "export format",
+            "schema": {
+              "type": "string",
+              "example": "EPICOR, ebay"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/Item"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/warehouses": {
+      "get": {
+        "tags": ["Items"],
+        "description": "Returns items",
+        "responses": {
+          "200": {
+            "description": "list of warehouses",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string",
+                  "example": "hola"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Item": {
+      "type": "object",
+      "properties": {
+        "SKU": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "quantity": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "created": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "status": {
+          "type": "string",
+          "description": "Item Status",
+          "enum": ["enabled", "disabled"]
+        },
+        "active": {
+          "type": "boolean",
+          "default": true
+        }
+      },
+      "xml": {
+        "name": "Item"
+      }
+    }
+  }
+}
